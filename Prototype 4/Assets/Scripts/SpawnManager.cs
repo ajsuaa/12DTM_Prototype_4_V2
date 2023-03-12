@@ -7,17 +7,35 @@ public class SpawnManager : MonoBehaviour
     //make gameobject real
     public GameObject enemyPrefab;
     private float spawnRange = 9;
+    //see how much enemies there are
+    public int enemyCount;
     // Start is called before the first frame update
     void Start()
     {
-        //spawn random balls 
-        Instantiate(enemyPrefab, GenerateSpawnPosition(), enemyPrefab.transform.rotation);
+        //the number tells how many balls should spawn
+        SpawnEnemyWave(3); 
+    }
+
+    void SpawnEnemyWave(int enemiesToSpawn)
+    {
+        
+        //makes specific number of balls 
+        for (int i = 0; i < enemiesToSpawn; i++)
+        {
+            //spawn random balls  
+            Instantiate(enemyPrefab, GenerateSpawnPosition(), enemyPrefab.transform.rotation);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        //enemy
+        enemyCountCount = FindObjectsOfType<Enemy>().Length;
+        if (enemyCount == 0)
+        { 
+            SpawnEnemyWave(1);
+        }
     }
 
     //making custom functions = more neat

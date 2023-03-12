@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     //see if have powerup or not
     public bool hasPowerup;
     // for power pyshical power up indicator
-    
+    public GameObject powerupIndicator;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +33,8 @@ public class PlayerController : MonoBehaviour
         float forwardInput = Input.GetAxis("Vertical");
         //player moves with the camera
         playerRb.AddForce(focalPoint.transform.forward * speed * forwardInput);
+        //power up indicator shows up in position
+        powerupIndicator.transform.position = transform.position + new Vector3(0, -0.5f, 0);
     }
 
     //indicates when powerup is picked up
@@ -44,6 +46,8 @@ public class PlayerController : MonoBehaviour
             Destroy(other.gameObject);
             //makes potion timer limited
             StartCoroutine(PowerupCountdownRoutine());
+            //powerup is activated
+            powerupIndicator.gameObject.SetActive(true);
         }
     }
 
@@ -53,6 +57,8 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(7);
         hasPowerup = false;
+        //after some time, indicator disappears
+        powerupIndicator.gameObject.SetActive(false);
     }
 
     private void OnCollisionEnter(Collision collision)
