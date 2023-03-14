@@ -26,10 +26,10 @@ public class Enemy : MonoBehaviour
 
         //destroys/makes the enemies disappear when they fall off
           
-            if transform.position.y < - 10
-            { 
-                { Destroy gameObject);
-            }
+        if (transform.position.y < -10)
+        { 
+        Destroy (gameObject);
         }
+        
     }
 }

@@ -9,11 +9,17 @@ public class SpawnManager : MonoBehaviour
     private float spawnRange = 9;
     //see how much enemies there are
     public int enemyCount;
+    //increase numbers of enemies per wave
+    public int waveNumber = 1;
+    //power up
+    public GameObject powerupPrefab;
     // Start is called before the first frame update
     void Start()
     {
         //the number tells how many balls should spawn
-        SpawnEnemyWave(3); 
+        SpawnEnemyWave(waveNumber);
+        //spawns a powerup every new wave
+        Instantiate(powerupPrefab, GenerateSpawnPosition(), powerupPrefab.transform.rotation); ;
     }
 
     void SpawnEnemyWave(int enemiesToSpawn)
@@ -31,10 +37,13 @@ public class SpawnManager : MonoBehaviour
     void Update()
     {
         //enemy
-        enemyCountCount = FindObjectsOfType<Enemy>().Length;
+        enemyCount = FindObjectsOfType<Enemy>().Length;
+       
         if (enemyCount == 0)
-        { 
-            SpawnEnemyWave(1);
+        {
+            waveNumber++; 
+            SpawnEnemyWave(waveNumber);
+            Instantiate(powerupPrefab, GenerateSpawnPosition(), powerupPrefab.transform.rotation);
         }
     }
 
